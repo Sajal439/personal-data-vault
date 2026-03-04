@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password   String
+  createdAt DateTime @default(now())
+
+  vaults Vault[]
+}
+
+model Vault {
+  id        String   @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user    User     @relation(fields: [userId], references: [id])
+  folders Folder[]
+}
+
+model Folder {
+  id       String  @id @default(uuid())
+  name     String
+  vaultId  String
+  parentId String?
+
+  vault     Vault      @relation(fields: [vaultId], references: [id])
+  documents Document[]
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  title     String
+  fileKey   String
+  mimeType  String
+  size      Int
+  folderId  String
+  encrypted Boolean
+  createdAt DateTime @default(now())
+
+  folder Folder @relation(fields: [folderId], references: [id])
+
+  shareLinks ShareLink[]
+  accessLogs AccessLog[]
+}
+
+model ShareLink {
+  id         String   @id @default(uuid())
+  documentId String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id])
+}
+
+model AccessLog {
+  id         String   @id @default(uuid())
+  documentId String
+  accessedAt DateTime @default(now())
+  ipAddress  String?
+
+  document Document @relation(fields: [documentId], references: [id])
+}
