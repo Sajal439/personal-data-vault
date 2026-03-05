@@ -23,7 +23,7 @@ model Vault {
   userId    String
   createdAt DateTime @default(now())
 
-  user    User     @relation(fields: [userId], references: [id])
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   folders Folder[]
 }
 
@@ -33,9 +33,9 @@ model Folder {
   vaultId  String
   parentId String?
 
-  vault Vault @relation(fields: [vaultId], references: [id])
+  vault Vault @relation(fields: [vaultId], references: [id], onDelete: Cascade)
 
-  parent   Folder? @relation("FolderHierarchy", fields: [parentId], references: [id])
+  parent   Folder? @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   children Folder[] @relation("FolderHierarchy")
 
   documents Document[]
@@ -55,7 +55,7 @@ model Document {
 
   createdAt DateTime @default(now())
 
-  folder Folder @relation(fields: [folderId], references: [id])
+  folder Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
 
   shareLinks ShareLink[]
   accessLogs AccessLog[]
@@ -67,7 +67,7 @@ model ShareLink {
   expiresAt  DateTime
   createdAt  DateTime @default(now())
 
-  document Document @relation(fields: [documentId], references: [id])
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 }
 
 model AccessLog {
@@ -76,5 +76,5 @@ model AccessLog {
   accessedAt DateTime @default(now())
   ipAddress  String?
 
-  document Document @relation(fields: [documentId], references: [id])
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 }

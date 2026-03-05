@@ -114,6 +114,8 @@ export const DocumentScalarFieldEnum = {
   size: 'size',
   folderId: 'folderId',
   encrypted: 'encrypted',
+  encryptionIv: 'encryptionIv',
+  encryptionAlgo: 'encryptionAlgo',
   createdAt: 'createdAt'
 } as const
 

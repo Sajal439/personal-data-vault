@@ -13,13 +13,14 @@
   "license": "ISC",
   "packageManager": "pnpm@10.30.3",
   "dependencies": {
+    "@fastify/rate-limit": "^10.3.0",
+    "@repo/db": "workspace:*",
+    "@repo/types": "workspace:*",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",
     "fastify": "^5.7.4",
     "jsonwebtoken": "^9.0.3",
-    "zod": "^4.3.6",
-    "@repo/db": "workspace:*",
-    "@repo/types": "workspace:*"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
