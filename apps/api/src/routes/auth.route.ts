@@ -1,5 +1,4 @@
 import { FastifyInstance } from "fastify";
-import { asyncHandler } from "../utils/asyncHandler.js";
 import {
   signupController,
   loginController,
@@ -7,9 +6,9 @@ import {
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 export default async function authRoutes(app: FastifyInstance) {
-  app.post("/signup", asyncHandler(signupController));
+  app.post("/signup", { preHandler: authMiddleware }, signupController);
 
-  app.post("/login", asyncHandler(loginController));
+  app.post("/login", { preHandler: authMiddleware }, loginController);
 
   // app.get("/protected", { preHandler: authMiddleware }, async (req, reply) => {
   //   return reply.send({
