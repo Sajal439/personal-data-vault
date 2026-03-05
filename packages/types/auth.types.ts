@@ -14,6 +14,10 @@ export interface AuthUser {
   createdAt: Date;
 }
 
+export interface JwtPayload {
+  userId: string;
+}
+
 export interface AuthResponse {
   token: string;
   user: AuthUser;
