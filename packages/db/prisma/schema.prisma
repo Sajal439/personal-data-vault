@@ -33,7 +33,11 @@ model Folder {
   vaultId  String
   parentId String?
 
-  vault     Vault      @relation(fields: [vaultId], references: [id])
+  vault Vault @relation(fields: [vaultId], references: [id])
+
+  parent   Folder? @relation("FolderHierarchy", fields: [parentId], references: [id])
+  children Folder[] @relation("FolderHierarchy")
+
   documents Document[]
 }
 
@@ -44,7 +48,11 @@ model Document {
   mimeType  String
   size      Int
   folderId  String
+
   encrypted Boolean
+  encryptionIv String?
+  encryptionAlgo String?
+
   createdAt DateTime @default(now())
 
   folder Folder @relation(fields: [folderId], references: [id])

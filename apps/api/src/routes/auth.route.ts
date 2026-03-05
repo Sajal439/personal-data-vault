@@ -1,14 +1,12 @@
 import { FastifyInstance } from "fastify";
-import { login, signup } from "../services/auth.service";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import {
+  signupController,
+  loginController,
+} from "../controllers/auth.controller.js";
 
 export default async function authRoutes(app: FastifyInstance) {
-  app.post("/signup", async (req: any) => {
-    const { email, password } = req.body;
-    return signup(email, password);
-  });
+  app.post("/signup", asyncHandler(signupController));
 
-  app.post("/login", async (req: any) => {
-    const { email, password } = req.body;
-    return login(email, password);
-  });
+  app.post("/login", asyncHandler(loginController));
 }

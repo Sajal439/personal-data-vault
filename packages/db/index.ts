@@ -1,9 +1,13 @@
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-import { PrismaClient } from "./generated/prisma/client";
+import { PrismaClient } from "./generated/prisma/client.js";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({
@@ -12,4 +16,4 @@ const adapter = new PrismaPg({
 
 export const prisma = new PrismaClient({ adapter });
 
-export * from "./generated/prisma/client";
+export * from "./generated/prisma/client.js";

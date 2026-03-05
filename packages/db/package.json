@@ -1,6 +1,13 @@
 {
   "name": "@repo/db",
   "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
   "main": "index.ts",
   "types": "index.ts",
   "scripts": {
