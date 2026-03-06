@@ -15,3 +15,20 @@ export const Permission = {
 } as const
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
+
+
+export const ReminderStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type ReminderStatus = (typeof ReminderStatus)[keyof typeof ReminderStatus]
+
+
+export const IntegrationProvider = {
+  GOOGLE_DRIVE: 'GOOGLE_DRIVE',
+  DROPBOX: 'DROPBOX'
+} as const
+
+export type IntegrationProvider = (typeof IntegrationProvider)[keyof typeof IntegrationProvider]

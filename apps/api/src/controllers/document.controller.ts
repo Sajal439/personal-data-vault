@@ -19,6 +19,7 @@ import {
   decryptBuffer,
   streamToBuffer,
 } from "../services/encryption.service.js";
+import { aiQueue } from "../queues.js";
 
 /**
  * Upload a document — encrypt and store in MinIO.
@@ -66,6 +67,16 @@ export const uploadDocumentController = asyncHandler(
       encryptionAlgo: algorithm,
       encryptionTag: authTag,
     });
+
+    // Enqueue background AI Processing Job
+    try {
+      await aiQueue.add("process-ai", { documentId: document.id, userId });
+      console.log(
+        `[Queue] Added AI processing job for document ${document.id}`,
+      );
+    } catch (qErr: any) {
+      console.error(`[Queue] Failed to enqueue AI job: ${qErr.message}`);
+    }
 
     return reply
       .status(201)

@@ -11,6 +11,9 @@ import tagRoutes from "./routes/tag.route.js";
 import searchRoutes from "./routes/search.route.js";
 import shareRoutes from "./routes/share.route.js";
 import profileRoutes from "./routes/profile.route.js";
+import reminderRoutes from "./routes/reminder.route.js";
+import aiRoutes from "./routes/ai.route.js";
+import integrationRoutes from "./routes/integration.route.js";
 import { ensureBucket } from "./services/storage.service.js";
 
 const server = Fastify({
@@ -67,6 +70,9 @@ server.register(documentRoutes, { prefix: "/document" });
 server.register(tagRoutes, { prefix: "/tag" });
 server.register(searchRoutes, { prefix: "/search" });
 server.register(shareRoutes, { prefix: "/share" });
+server.register(reminderRoutes, { prefix: "/reminder" });
+server.register(aiRoutes, { prefix: "/ai" });
+server.register(integrationRoutes, { prefix: "/integration" });
 
 // ─── Start Server ────────────────────────────────────────────────
 

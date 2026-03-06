@@ -1,0 +1,27 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "Background jobs processor for Personal Data OS",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1003.0",
+    "@aws-sdk/s3-request-presigner": "^3.1003.0",
+    "@google/generative-ai": "^0.24.1",
+    "@repo/config": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/types": "workspace:*",
+    "bullmq": "^5.70.4",
+    "dotenv": "^17.3.1",
+    "ioredis": "^5.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

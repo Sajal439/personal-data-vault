@@ -19,8 +19,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  vaults Vault[]
-  tags   Tag[]
+  vaults       Vault[]
+  tags         Tag[]
+  integrations Integration[]
 }
 
 // ─── Vault ──────────────────────────────────────────────────────────
@@ -46,8 +47,8 @@ model Folder {
   vaultId  String
   parentId String?
 
-  vault    Vault   @relation(fields: [vaultId], references: [id], onDelete: Cascade)
-  parent   Folder? @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  vault    Vault    @relation(fields: [vaultId], references: [id], onDelete: Cascade)
+  parent   Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   children Folder[] @relation("FolderHierarchy")
 
   documents Document[]
@@ -71,6 +72,10 @@ model Document {
   encryptionAlgo String?
   encryptionTag  String?
 
+  aiProcessed   Boolean   @default(false)
+  extractedText String?
+  expiryDate    DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -78,6 +83,7 @@ model Document {
   shareLinks ShareLink[]
   accessLogs AccessLog[]
   tags       DocumentTag[]
+  reminders  Reminder[]
 
   @@index([folderId])
 }
@@ -152,4 +158,48 @@ model AccessLog {
 
   @@index([documentId])
   @@index([shareLinkId])
+}
+
+// ─── Reminder ───────────────────────────────────────────────────────
+
+model Reminder {
+  id           String         @id @default(uuid())
+  documentId   String
+  reminderDate DateTime
+  status       ReminderStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+  @@index([reminderDate])
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  DISMISSED
+}
+
+// ─── Integration ────────────────────────────────────────────────────
+
+model Integration {
+  id           String              @id @default(uuid())
+  userId       String
+  provider     IntegrationProvider
+  accessToken  String
+  refreshToken String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+  @@index([userId])
+}
+
+enum IntegrationProvider {
+  GOOGLE_DRIVE
+  DROPBOX
 }

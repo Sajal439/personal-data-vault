@@ -515,10 +515,6 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type ShareLinkCreateNestedOneWithoutAccessLogsInput = {
   create?: Prisma.XOR<Prisma.ShareLinkCreateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedCreateWithoutAccessLogsInput>
   connectOrCreate?: Prisma.ShareLinkCreateOrConnectWithoutAccessLogsInput

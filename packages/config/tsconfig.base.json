@@ -5,10 +5,11 @@
     "moduleResolution": "NodeNext",
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "../..",
     "paths": {
       "@repo/db": ["packages/db/index.ts"],
-      "@repo/types": ["packages/types/index.ts"]
+      "@repo/types": ["packages/types/index.ts"],
+      "@repo/config": ["packages/config/index.ts"]
     }
   }
 }

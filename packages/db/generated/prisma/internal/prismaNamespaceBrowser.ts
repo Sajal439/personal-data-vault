@@ -58,7 +58,9 @@ export const ModelName = {
   Tag: 'Tag',
   DocumentTag: 'DocumentTag',
   ShareLink: 'ShareLink',
-  AccessLog: 'AccessLog'
+  AccessLog: 'AccessLog',
+  Reminder: 'Reminder',
+  Integration: 'Integration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -123,6 +125,9 @@ export const DocumentScalarFieldEnum = {
   encryptionIv: 'encryptionIv',
   encryptionAlgo: 'encryptionAlgo',
   encryptionTag: 'encryptionTag',
+  aiProcessed: 'aiProcessed',
+  extractedText: 'extractedText',
+  expiryDate: 'expiryDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -174,6 +179,31 @@ export const AccessLogScalarFieldEnum = {
 } as const
 
 export type AccessLogScalarFieldEnum = (typeof AccessLogScalarFieldEnum)[keyof typeof AccessLogScalarFieldEnum]
+
+
+export const ReminderScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  reminderDate: 'reminderDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
+
+
+export const IntegrationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationScalarFieldEnum = (typeof IntegrationScalarFieldEnum)[keyof typeof IntegrationScalarFieldEnum]
 
 
 export const SortOrder = {

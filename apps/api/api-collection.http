@@ -211,3 +211,68 @@ GET {{baseUrl}}/share/public/:token
 
 ### Download Shared Document (Replace :token)
 GET {{baseUrl}}/share/public/:token/download
+
+
+# ==========================================
+# 9. REMINDERS (Phase 4)
+# ==========================================
+
+### Create Reminder (Replace :documentId)
+POST {{baseUrl}}/reminder
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "documentId": ":documentId",
+  "reminderDate": "2026-12-31T23:59:59Z"
+}
+
+### Get User Reminders
+GET {{baseUrl}}/reminder
+Authorization: Bearer {{authToken}}
+
+### Dismiss Reminder (Replace :reminderId)
+PATCH {{baseUrl}}/reminder/:reminderId/dismiss
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 10. AI ASSISTANT (Phase 5)
+# ==========================================
+
+### Manually Trigger AI Processing (Replace :documentId)
+POST {{baseUrl}}/ai/document/:documentId/process
+Authorization: Bearer {{authToken}}
+
+### Ask AI Assistant
+POST {{baseUrl}}/ai/chat
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "query": "When does my insurance expire based on the documents uploaded?"
+}
+
+
+# ==========================================
+# 11. INTEGRATIONS (Phase 6)
+# ==========================================
+
+### Save Google Drive Integration
+POST {{baseUrl}}/integration
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "provider": "GOOGLE_DRIVE",
+  "accessToken": "ya29.a0AfB_byD_...",
+  "refreshToken": "1//04_..."
+}
+
+### Get User Integrations
+GET {{baseUrl}}/integration
+Authorization: Bearer {{authToken}}
+
+### Delete Integration (Replace :integrationId)
+DELETE {{baseUrl}}/integration/:integrationId
+Authorization: Bearer {{authToken}}

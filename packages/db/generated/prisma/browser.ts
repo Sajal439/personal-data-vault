@@ -57,3 +57,13 @@ export type ShareLink = Prisma.ShareLinkModel
  * 
  */
 export type AccessLog = Prisma.AccessLogModel
+/**
+ * Model Reminder
+ * 
+ */
+export type Reminder = Prisma.ReminderModel
+/**
+ * Model Integration
+ * 
+ */
+export type Integration = Prisma.IntegrationModel
