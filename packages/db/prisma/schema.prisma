@@ -7,25 +7,38 @@ datasource db {
   provider = "postgresql"
 }
 
+// ─── User ───────────────────────────────────────────────────────────
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String?
-  password   String
+  password  String
+  avatarUrl String?
+  bio       String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   vaults Vault[]
+  tags   Tag[]
 }
+
+// ─── Vault ──────────────────────────────────────────────────────────
 
 model Vault {
   id        String   @id @default(uuid())
   name      String
   userId    String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   folders Folder[]
+
+  @@index([userId])
 }
+
+// ─── Folder ─────────────────────────────────────────────────────────
 
 model Folder {
   id       String  @id @default(uuid())
@@ -33,48 +46,110 @@ model Folder {
   vaultId  String
   parentId String?
 
-  vault Vault @relation(fields: [vaultId], references: [id], onDelete: Cascade)
-
+  vault    Vault   @relation(fields: [vaultId], references: [id], onDelete: Cascade)
   parent   Folder? @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   children Folder[] @relation("FolderHierarchy")
 
   documents Document[]
+
+  @@index([vaultId])
+  @@index([parentId])
 }
+
+// ─── Document ───────────────────────────────────────────────────────
 
 model Document {
-  id        String   @id @default(uuid())
-  title     String
-  fileKey   String
-  mimeType  String
-  size      Int
-  folderId  String
+  id       String @id @default(uuid())
+  title    String
+  fileKey  String
+  mimeType String
+  size     Int
+  folderId String
 
-  encrypted Boolean
-  encryptionIv String?
+  encrypted      Boolean @default(true)
+  encryptionIv   String?
   encryptionAlgo String?
+  encryptionTag  String?
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  folder Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
-
+  folder     Folder        @relation(fields: [folderId], references: [id], onDelete: Cascade)
   shareLinks ShareLink[]
   accessLogs AccessLog[]
+  tags       DocumentTag[]
+
+  @@index([folderId])
 }
+
+// ─── Tag ────────────────────────────────────────────────────────────
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents DocumentTag[]
+
+  @@unique([name, userId])
+  @@index([userId])
+}
+
+// ─── DocumentTag (join table) ───────────────────────────────────────
+
+model DocumentTag {
+  id         String @id @default(uuid())
+  documentId String
+  tagId      String
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  tag      Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, tagId])
+  @@index([documentId])
+  @@index([tagId])
+}
+
+// ─── ShareLink ──────────────────────────────────────────────────────
 
 model ShareLink {
-  id         String   @id @default(uuid())
-  documentId String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
+  id          String     @id @default(uuid())
+  token       String     @unique @default(uuid())
+  documentId  String
+  permission  Permission @default(VIEW_ONLY)
+  maxAccesses Int?
+  expiresAt   DateTime
+  revokedAt   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  document   Document    @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  accessLogs AccessLog[]
+
+  @@index([documentId])
+  @@index([token])
 }
 
-model AccessLog {
-  id         String   @id @default(uuid())
-  documentId String
-  accessedAt DateTime @default(now())
-  ipAddress  String?
+enum Permission {
+  VIEW_ONLY
+  DOWNLOAD
+}
 
-  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+// ─── AccessLog ──────────────────────────────────────────────────────
+
+model AccessLog {
+  id          String   @id @default(uuid())
+  documentId  String
+  shareLinkId String?
+  accessedAt  DateTime @default(now())
+  ipAddress   String?
+  userAgent   String?
+
+  document  Document   @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  shareLink ShareLink? @relation(fields: [shareLinkId], references: [id], onDelete: SetNull)
+
+  @@index([documentId])
+  @@index([shareLinkId])
 }

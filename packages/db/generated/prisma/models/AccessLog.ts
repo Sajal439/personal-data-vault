@@ -27,22 +27,28 @@ export type AggregateAccessLog = {
 export type AccessLogMinAggregateOutputType = {
   id: string | null
   documentId: string | null
+  shareLinkId: string | null
   accessedAt: Date | null
   ipAddress: string | null
+  userAgent: string | null
 }
 
 export type AccessLogMaxAggregateOutputType = {
   id: string | null
   documentId: string | null
+  shareLinkId: string | null
   accessedAt: Date | null
   ipAddress: string | null
+  userAgent: string | null
 }
 
 export type AccessLogCountAggregateOutputType = {
   id: number
   documentId: number
+  shareLinkId: number
   accessedAt: number
   ipAddress: number
+  userAgent: number
   _all: number
 }
 
@@ -50,22 +56,28 @@ export type AccessLogCountAggregateOutputType = {
 export type AccessLogMinAggregateInputType = {
   id?: true
   documentId?: true
+  shareLinkId?: true
   accessedAt?: true
   ipAddress?: true
+  userAgent?: true
 }
 
 export type AccessLogMaxAggregateInputType = {
   id?: true
   documentId?: true
+  shareLinkId?: true
   accessedAt?: true
   ipAddress?: true
+  userAgent?: true
 }
 
 export type AccessLogCountAggregateInputType = {
   id?: true
   documentId?: true
+  shareLinkId?: true
   accessedAt?: true
   ipAddress?: true
+  userAgent?: true
   _all?: true
 }
 
@@ -144,8 +156,10 @@ export type AccessLogGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type AccessLogGroupByOutputType = {
   id: string
   documentId: string
+  shareLinkId: string | null
   accessedAt: Date
   ipAddress: string | null
+  userAgent: string | null
   _count: AccessLogCountAggregateOutputType | null
   _min: AccessLogMinAggregateOutputType | null
   _max: AccessLogMaxAggregateOutputType | null
@@ -172,17 +186,23 @@ export type AccessLogWhereInput = {
   NOT?: Prisma.AccessLogWhereInput | Prisma.AccessLogWhereInput[]
   id?: Prisma.StringFilter<"AccessLog"> | string
   documentId?: Prisma.StringFilter<"AccessLog"> | string
+  shareLinkId?: Prisma.StringNullableFilter<"AccessLog"> | string | null
   accessedAt?: Prisma.DateTimeFilter<"AccessLog"> | Date | string
   ipAddress?: Prisma.StringNullableFilter<"AccessLog"> | string | null
+  userAgent?: Prisma.StringNullableFilter<"AccessLog"> | string | null
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+  shareLink?: Prisma.XOR<Prisma.ShareLinkNullableScalarRelationFilter, Prisma.ShareLinkWhereInput> | null
 }
 
 export type AccessLogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  shareLinkId?: Prisma.SortOrderInput | Prisma.SortOrder
   accessedAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
   document?: Prisma.DocumentOrderByWithRelationInput
+  shareLink?: Prisma.ShareLinkOrderByWithRelationInput
 }
 
 export type AccessLogWhereUniqueInput = Prisma.AtLeast<{
@@ -191,16 +211,21 @@ export type AccessLogWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AccessLogWhereInput[]
   NOT?: Prisma.AccessLogWhereInput | Prisma.AccessLogWhereInput[]
   documentId?: Prisma.StringFilter<"AccessLog"> | string
+  shareLinkId?: Prisma.StringNullableFilter<"AccessLog"> | string | null
   accessedAt?: Prisma.DateTimeFilter<"AccessLog"> | Date | string
   ipAddress?: Prisma.StringNullableFilter<"AccessLog"> | string | null
+  userAgent?: Prisma.StringNullableFilter<"AccessLog"> | string | null
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+  shareLink?: Prisma.XOR<Prisma.ShareLinkNullableScalarRelationFilter, Prisma.ShareLinkWhereInput> | null
 }, "id">
 
 export type AccessLogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  shareLinkId?: Prisma.SortOrderInput | Prisma.SortOrder
   accessedAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AccessLogCountOrderByAggregateInput
   _max?: Prisma.AccessLogMaxOrderByAggregateInput
   _min?: Prisma.AccessLogMinOrderByAggregateInput
@@ -212,56 +237,71 @@ export type AccessLogScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AccessLogScalarWhereWithAggregatesInput | Prisma.AccessLogScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AccessLog"> | string
   documentId?: Prisma.StringWithAggregatesFilter<"AccessLog"> | string
+  shareLinkId?: Prisma.StringNullableWithAggregatesFilter<"AccessLog"> | string | null
   accessedAt?: Prisma.DateTimeWithAggregatesFilter<"AccessLog"> | Date | string
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"AccessLog"> | string | null
+  userAgent?: Prisma.StringNullableWithAggregatesFilter<"AccessLog"> | string | null
 }
 
 export type AccessLogCreateInput = {
   id?: string
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
   document: Prisma.DocumentCreateNestedOneWithoutAccessLogsInput
+  shareLink?: Prisma.ShareLinkCreateNestedOneWithoutAccessLogsInput
 }
 
 export type AccessLogUncheckedCreateInput = {
   id?: string
   documentId: string
+  shareLinkId?: string | null
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
 }
 
 export type AccessLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   document?: Prisma.DocumentUpdateOneRequiredWithoutAccessLogsNestedInput
+  shareLink?: Prisma.ShareLinkUpdateOneWithoutAccessLogsNestedInput
 }
 
 export type AccessLogUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  shareLinkId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessLogCreateManyInput = {
   id?: string
   documentId: string
+  shareLinkId?: string | null
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
 }
 
 export type AccessLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessLogUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  shareLinkId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessLogListRelationFilter = {
@@ -277,22 +317,28 @@ export type AccessLogOrderByRelationAggregateInput = {
 export type AccessLogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  shareLinkId?: Prisma.SortOrder
   accessedAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
 }
 
 export type AccessLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  shareLinkId?: Prisma.SortOrder
   accessedAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
 }
 
 export type AccessLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  shareLinkId?: Prisma.SortOrder
   accessedAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
 }
 
 export type AccessLogCreateNestedManyWithoutDocumentInput = {
@@ -337,16 +383,62 @@ export type AccessLogUncheckedUpdateManyWithoutDocumentNestedInput = {
   deleteMany?: Prisma.AccessLogScalarWhereInput | Prisma.AccessLogScalarWhereInput[]
 }
 
+export type AccessLogCreateNestedManyWithoutShareLinkInput = {
+  create?: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput> | Prisma.AccessLogCreateWithoutShareLinkInput[] | Prisma.AccessLogUncheckedCreateWithoutShareLinkInput[]
+  connectOrCreate?: Prisma.AccessLogCreateOrConnectWithoutShareLinkInput | Prisma.AccessLogCreateOrConnectWithoutShareLinkInput[]
+  createMany?: Prisma.AccessLogCreateManyShareLinkInputEnvelope
+  connect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+}
+
+export type AccessLogUncheckedCreateNestedManyWithoutShareLinkInput = {
+  create?: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput> | Prisma.AccessLogCreateWithoutShareLinkInput[] | Prisma.AccessLogUncheckedCreateWithoutShareLinkInput[]
+  connectOrCreate?: Prisma.AccessLogCreateOrConnectWithoutShareLinkInput | Prisma.AccessLogCreateOrConnectWithoutShareLinkInput[]
+  createMany?: Prisma.AccessLogCreateManyShareLinkInputEnvelope
+  connect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+}
+
+export type AccessLogUpdateManyWithoutShareLinkNestedInput = {
+  create?: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput> | Prisma.AccessLogCreateWithoutShareLinkInput[] | Prisma.AccessLogUncheckedCreateWithoutShareLinkInput[]
+  connectOrCreate?: Prisma.AccessLogCreateOrConnectWithoutShareLinkInput | Prisma.AccessLogCreateOrConnectWithoutShareLinkInput[]
+  upsert?: Prisma.AccessLogUpsertWithWhereUniqueWithoutShareLinkInput | Prisma.AccessLogUpsertWithWhereUniqueWithoutShareLinkInput[]
+  createMany?: Prisma.AccessLogCreateManyShareLinkInputEnvelope
+  set?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  disconnect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  delete?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  connect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  update?: Prisma.AccessLogUpdateWithWhereUniqueWithoutShareLinkInput | Prisma.AccessLogUpdateWithWhereUniqueWithoutShareLinkInput[]
+  updateMany?: Prisma.AccessLogUpdateManyWithWhereWithoutShareLinkInput | Prisma.AccessLogUpdateManyWithWhereWithoutShareLinkInput[]
+  deleteMany?: Prisma.AccessLogScalarWhereInput | Prisma.AccessLogScalarWhereInput[]
+}
+
+export type AccessLogUncheckedUpdateManyWithoutShareLinkNestedInput = {
+  create?: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput> | Prisma.AccessLogCreateWithoutShareLinkInput[] | Prisma.AccessLogUncheckedCreateWithoutShareLinkInput[]
+  connectOrCreate?: Prisma.AccessLogCreateOrConnectWithoutShareLinkInput | Prisma.AccessLogCreateOrConnectWithoutShareLinkInput[]
+  upsert?: Prisma.AccessLogUpsertWithWhereUniqueWithoutShareLinkInput | Prisma.AccessLogUpsertWithWhereUniqueWithoutShareLinkInput[]
+  createMany?: Prisma.AccessLogCreateManyShareLinkInputEnvelope
+  set?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  disconnect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  delete?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  connect?: Prisma.AccessLogWhereUniqueInput | Prisma.AccessLogWhereUniqueInput[]
+  update?: Prisma.AccessLogUpdateWithWhereUniqueWithoutShareLinkInput | Prisma.AccessLogUpdateWithWhereUniqueWithoutShareLinkInput[]
+  updateMany?: Prisma.AccessLogUpdateManyWithWhereWithoutShareLinkInput | Prisma.AccessLogUpdateManyWithWhereWithoutShareLinkInput[]
+  deleteMany?: Prisma.AccessLogScalarWhereInput | Prisma.AccessLogScalarWhereInput[]
+}
+
 export type AccessLogCreateWithoutDocumentInput = {
   id?: string
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
+  shareLink?: Prisma.ShareLinkCreateNestedOneWithoutAccessLogsInput
 }
 
 export type AccessLogUncheckedCreateWithoutDocumentInput = {
   id?: string
+  shareLinkId?: string | null
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
 }
 
 export type AccessLogCreateOrConnectWithoutDocumentInput = {
@@ -381,32 +473,116 @@ export type AccessLogScalarWhereInput = {
   NOT?: Prisma.AccessLogScalarWhereInput | Prisma.AccessLogScalarWhereInput[]
   id?: Prisma.StringFilter<"AccessLog"> | string
   documentId?: Prisma.StringFilter<"AccessLog"> | string
+  shareLinkId?: Prisma.StringNullableFilter<"AccessLog"> | string | null
   accessedAt?: Prisma.DateTimeFilter<"AccessLog"> | Date | string
   ipAddress?: Prisma.StringNullableFilter<"AccessLog"> | string | null
+  userAgent?: Prisma.StringNullableFilter<"AccessLog"> | string | null
+}
+
+export type AccessLogCreateWithoutShareLinkInput = {
+  id?: string
+  accessedAt?: Date | string
+  ipAddress?: string | null
+  userAgent?: string | null
+  document: Prisma.DocumentCreateNestedOneWithoutAccessLogsInput
+}
+
+export type AccessLogUncheckedCreateWithoutShareLinkInput = {
+  id?: string
+  documentId: string
+  accessedAt?: Date | string
+  ipAddress?: string | null
+  userAgent?: string | null
+}
+
+export type AccessLogCreateOrConnectWithoutShareLinkInput = {
+  where: Prisma.AccessLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput>
+}
+
+export type AccessLogCreateManyShareLinkInputEnvelope = {
+  data: Prisma.AccessLogCreateManyShareLinkInput | Prisma.AccessLogCreateManyShareLinkInput[]
+  skipDuplicates?: boolean
+}
+
+export type AccessLogUpsertWithWhereUniqueWithoutShareLinkInput = {
+  where: Prisma.AccessLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.AccessLogUpdateWithoutShareLinkInput, Prisma.AccessLogUncheckedUpdateWithoutShareLinkInput>
+  create: Prisma.XOR<Prisma.AccessLogCreateWithoutShareLinkInput, Prisma.AccessLogUncheckedCreateWithoutShareLinkInput>
+}
+
+export type AccessLogUpdateWithWhereUniqueWithoutShareLinkInput = {
+  where: Prisma.AccessLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.AccessLogUpdateWithoutShareLinkInput, Prisma.AccessLogUncheckedUpdateWithoutShareLinkInput>
+}
+
+export type AccessLogUpdateManyWithWhereWithoutShareLinkInput = {
+  where: Prisma.AccessLogScalarWhereInput
+  data: Prisma.XOR<Prisma.AccessLogUpdateManyMutationInput, Prisma.AccessLogUncheckedUpdateManyWithoutShareLinkInput>
 }
 
 export type AccessLogCreateManyDocumentInput = {
   id?: string
+  shareLinkId?: string | null
   accessedAt?: Date | string
   ipAddress?: string | null
+  userAgent?: string | null
 }
 
 export type AccessLogUpdateWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shareLink?: Prisma.ShareLinkUpdateOneWithoutAccessLogsNestedInput
 }
 
 export type AccessLogUncheckedUpdateWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  shareLinkId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessLogUncheckedUpdateManyWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  shareLinkId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type AccessLogCreateManyShareLinkInput = {
+  id?: string
+  documentId: string
+  accessedAt?: Date | string
+  ipAddress?: string | null
+  userAgent?: string | null
+}
+
+export type AccessLogUpdateWithoutShareLinkInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  document?: Prisma.DocumentUpdateOneRequiredWithoutAccessLogsNestedInput
+}
+
+export type AccessLogUncheckedUpdateWithoutShareLinkInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type AccessLogUncheckedUpdateManyWithoutShareLinkInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -414,55 +590,72 @@ export type AccessLogUncheckedUpdateManyWithoutDocumentInput = {
 export type AccessLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
+  shareLinkId?: boolean
   accessedAt?: boolean
   ipAddress?: boolean
+  userAgent?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }, ExtArgs["result"]["accessLog"]>
 
 export type AccessLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
+  shareLinkId?: boolean
   accessedAt?: boolean
   ipAddress?: boolean
+  userAgent?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }, ExtArgs["result"]["accessLog"]>
 
 export type AccessLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
+  shareLinkId?: boolean
   accessedAt?: boolean
   ipAddress?: boolean
+  userAgent?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }, ExtArgs["result"]["accessLog"]>
 
 export type AccessLogSelectScalar = {
   id?: boolean
   documentId?: boolean
+  shareLinkId?: boolean
   accessedAt?: boolean
   ipAddress?: boolean
+  userAgent?: boolean
 }
 
-export type AccessLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentId" | "accessedAt" | "ipAddress", ExtArgs["result"]["accessLog"]>
+export type AccessLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentId" | "shareLinkId" | "accessedAt" | "ipAddress" | "userAgent", ExtArgs["result"]["accessLog"]>
 export type AccessLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }
 export type AccessLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }
 export type AccessLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  shareLink?: boolean | Prisma.AccessLog$shareLinkArgs<ExtArgs>
 }
 
 export type $AccessLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AccessLog"
   objects: {
     document: Prisma.$DocumentPayload<ExtArgs>
+    shareLink: Prisma.$ShareLinkPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     documentId: string
+    shareLinkId: string | null
     accessedAt: Date
     ipAddress: string | null
+    userAgent: string | null
   }, ExtArgs["result"]["accessLog"]>
   composites: {}
 }
@@ -858,6 +1051,7 @@ readonly fields: AccessLogFieldRefs;
 export interface Prisma__AccessLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   document<T extends Prisma.DocumentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentDefaultArgs<ExtArgs>>): Prisma.Prisma__DocumentClient<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  shareLink<T extends Prisma.AccessLog$shareLinkArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccessLog$shareLinkArgs<ExtArgs>>): Prisma.Prisma__ShareLinkClient<runtime.Types.Result.GetResult<Prisma.$ShareLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -889,8 +1083,10 @@ export interface Prisma__AccessLogClient<T, Null = never, ExtArgs extends runtim
 export interface AccessLogFieldRefs {
   readonly id: Prisma.FieldRef<"AccessLog", 'String'>
   readonly documentId: Prisma.FieldRef<"AccessLog", 'String'>
+  readonly shareLinkId: Prisma.FieldRef<"AccessLog", 'String'>
   readonly accessedAt: Prisma.FieldRef<"AccessLog", 'DateTime'>
   readonly ipAddress: Prisma.FieldRef<"AccessLog", 'String'>
+  readonly userAgent: Prisma.FieldRef<"AccessLog", 'String'>
 }
     
 
@@ -1284,6 +1480,25 @@ export type AccessLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many AccessLogs to delete.
    */
   limit?: number
+}
+
+/**
+ * AccessLog.shareLink
+ */
+export type AccessLog$shareLinkArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShareLink
+   */
+  select?: Prisma.ShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShareLink
+   */
+  omit?: Prisma.ShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShareLinkInclude<ExtArgs> | null
+  where?: Prisma.ShareLinkWhereInput
 }
 
 /**

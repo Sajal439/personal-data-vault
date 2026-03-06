@@ -20,52 +20,100 @@ export type ShareLinkModel = runtime.Types.Result.DefaultSelection<Prisma.$Share
 
 export type AggregateShareLink = {
   _count: ShareLinkCountAggregateOutputType | null
+  _avg: ShareLinkAvgAggregateOutputType | null
+  _sum: ShareLinkSumAggregateOutputType | null
   _min: ShareLinkMinAggregateOutputType | null
   _max: ShareLinkMaxAggregateOutputType | null
 }
 
+export type ShareLinkAvgAggregateOutputType = {
+  maxAccesses: number | null
+}
+
+export type ShareLinkSumAggregateOutputType = {
+  maxAccesses: number | null
+}
+
 export type ShareLinkMinAggregateOutputType = {
   id: string | null
+  token: string | null
   documentId: string | null
+  permission: $Enums.Permission | null
+  maxAccesses: number | null
   expiresAt: Date | null
+  revokedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ShareLinkMaxAggregateOutputType = {
   id: string | null
+  token: string | null
   documentId: string | null
+  permission: $Enums.Permission | null
+  maxAccesses: number | null
   expiresAt: Date | null
+  revokedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ShareLinkCountAggregateOutputType = {
   id: number
+  token: number
   documentId: number
+  permission: number
+  maxAccesses: number
   expiresAt: number
+  revokedAt: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
+export type ShareLinkAvgAggregateInputType = {
+  maxAccesses?: true
+}
+
+export type ShareLinkSumAggregateInputType = {
+  maxAccesses?: true
+}
+
 export type ShareLinkMinAggregateInputType = {
   id?: true
+  token?: true
   documentId?: true
+  permission?: true
+  maxAccesses?: true
   expiresAt?: true
+  revokedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ShareLinkMaxAggregateInputType = {
   id?: true
+  token?: true
   documentId?: true
+  permission?: true
+  maxAccesses?: true
   expiresAt?: true
+  revokedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ShareLinkCountAggregateInputType = {
   id?: true
+  token?: true
   documentId?: true
+  permission?: true
+  maxAccesses?: true
   expiresAt?: true
+  revokedAt?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -107,6 +155,18 @@ export type ShareLinkAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ShareLinkAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ShareLinkSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ShareLinkMinAggregateInputType
@@ -137,16 +197,25 @@ export type ShareLinkGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: ShareLinkCountAggregateInputType | true
+  _avg?: ShareLinkAvgAggregateInputType
+  _sum?: ShareLinkSumAggregateInputType
   _min?: ShareLinkMinAggregateInputType
   _max?: ShareLinkMaxAggregateInputType
 }
 
 export type ShareLinkGroupByOutputType = {
   id: string
+  token: string
   documentId: string
+  permission: $Enums.Permission
+  maxAccesses: number | null
   expiresAt: Date
+  revokedAt: Date | null
   createdAt: Date
+  updatedAt: Date
   _count: ShareLinkCountAggregateOutputType | null
+  _avg: ShareLinkAvgAggregateOutputType | null
+  _sum: ShareLinkSumAggregateOutputType | null
   _min: ShareLinkMinAggregateOutputType | null
   _max: ShareLinkMaxAggregateOutputType | null
 }
@@ -171,39 +240,64 @@ export type ShareLinkWhereInput = {
   OR?: Prisma.ShareLinkWhereInput[]
   NOT?: Prisma.ShareLinkWhereInput | Prisma.ShareLinkWhereInput[]
   id?: Prisma.StringFilter<"ShareLink"> | string
+  token?: Prisma.StringFilter<"ShareLink"> | string
   documentId?: Prisma.StringFilter<"ShareLink"> | string
+  permission?: Prisma.EnumPermissionFilter<"ShareLink"> | $Enums.Permission
+  maxAccesses?: Prisma.IntNullableFilter<"ShareLink"> | number | null
   expiresAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  revokedAt?: Prisma.DateTimeNullableFilter<"ShareLink"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+  accessLogs?: Prisma.AccessLogListRelationFilter
 }
 
 export type ShareLinkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  token?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  permission?: Prisma.SortOrder
+  maxAccesses?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   document?: Prisma.DocumentOrderByWithRelationInput
+  accessLogs?: Prisma.AccessLogOrderByRelationAggregateInput
 }
 
 export type ShareLinkWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  token?: string
   AND?: Prisma.ShareLinkWhereInput | Prisma.ShareLinkWhereInput[]
   OR?: Prisma.ShareLinkWhereInput[]
   NOT?: Prisma.ShareLinkWhereInput | Prisma.ShareLinkWhereInput[]
   documentId?: Prisma.StringFilter<"ShareLink"> | string
+  permission?: Prisma.EnumPermissionFilter<"ShareLink"> | $Enums.Permission
+  maxAccesses?: Prisma.IntNullableFilter<"ShareLink"> | number | null
   expiresAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  revokedAt?: Prisma.DateTimeNullableFilter<"ShareLink"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
-}, "id">
+  accessLogs?: Prisma.AccessLogListRelationFilter
+}, "id" | "token">
 
 export type ShareLinkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  token?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  permission?: Prisma.SortOrder
+  maxAccesses?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ShareLinkCountOrderByAggregateInput
+  _avg?: Prisma.ShareLinkAvgOrderByAggregateInput
   _max?: Prisma.ShareLinkMaxOrderByAggregateInput
   _min?: Prisma.ShareLinkMinOrderByAggregateInput
+  _sum?: Prisma.ShareLinkSumOrderByAggregateInput
 }
 
 export type ShareLinkScalarWhereWithAggregatesInput = {
@@ -211,57 +305,101 @@ export type ShareLinkScalarWhereWithAggregatesInput = {
   OR?: Prisma.ShareLinkScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ShareLinkScalarWhereWithAggregatesInput | Prisma.ShareLinkScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ShareLink"> | string
+  token?: Prisma.StringWithAggregatesFilter<"ShareLink"> | string
   documentId?: Prisma.StringWithAggregatesFilter<"ShareLink"> | string
+  permission?: Prisma.EnumPermissionWithAggregatesFilter<"ShareLink"> | $Enums.Permission
+  maxAccesses?: Prisma.IntNullableWithAggregatesFilter<"ShareLink"> | number | null
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"ShareLink"> | Date | string
+  revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ShareLink"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ShareLink"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ShareLink"> | Date | string
 }
 
 export type ShareLinkCreateInput = {
   id?: string
+  token?: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   document: Prisma.DocumentCreateNestedOneWithoutShareLinksInput
+  accessLogs?: Prisma.AccessLogCreateNestedManyWithoutShareLinkInput
 }
 
 export type ShareLinkUncheckedCreateInput = {
   id?: string
+  token?: string
   documentId: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutShareLinkInput
 }
 
 export type ShareLinkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   document?: Prisma.DocumentUpdateOneRequiredWithoutShareLinksNestedInput
+  accessLogs?: Prisma.AccessLogUpdateManyWithoutShareLinkNestedInput
 }
 
 export type ShareLinkUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
   documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutShareLinkNestedInput
 }
 
 export type ShareLinkCreateManyInput = {
   id?: string
+  token?: string
   documentId: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ShareLinkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ShareLinkUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
   documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ShareLinkListRelationFilter = {
@@ -276,23 +414,51 @@ export type ShareLinkOrderByRelationAggregateInput = {
 
 export type ShareLinkCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  token?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  permission?: Prisma.SortOrder
+  maxAccesses?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type ShareLinkAvgOrderByAggregateInput = {
+  maxAccesses?: Prisma.SortOrder
 }
 
 export type ShareLinkMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  token?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  permission?: Prisma.SortOrder
+  maxAccesses?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ShareLinkMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  token?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  permission?: Prisma.SortOrder
+  maxAccesses?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type ShareLinkSumOrderByAggregateInput = {
+  maxAccesses?: Prisma.SortOrder
+}
+
+export type ShareLinkNullableScalarRelationFilter = {
+  is?: Prisma.ShareLinkWhereInput | null
+  isNot?: Prisma.ShareLinkWhereInput | null
 }
 
 export type ShareLinkCreateNestedManyWithoutDocumentInput = {
@@ -337,16 +503,60 @@ export type ShareLinkUncheckedUpdateManyWithoutDocumentNestedInput = {
   deleteMany?: Prisma.ShareLinkScalarWhereInput | Prisma.ShareLinkScalarWhereInput[]
 }
 
+export type EnumPermissionFieldUpdateOperationsInput = {
+  set?: $Enums.Permission
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type ShareLinkCreateNestedOneWithoutAccessLogsInput = {
+  create?: Prisma.XOR<Prisma.ShareLinkCreateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedCreateWithoutAccessLogsInput>
+  connectOrCreate?: Prisma.ShareLinkCreateOrConnectWithoutAccessLogsInput
+  connect?: Prisma.ShareLinkWhereUniqueInput
+}
+
+export type ShareLinkUpdateOneWithoutAccessLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShareLinkCreateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedCreateWithoutAccessLogsInput>
+  connectOrCreate?: Prisma.ShareLinkCreateOrConnectWithoutAccessLogsInput
+  upsert?: Prisma.ShareLinkUpsertWithoutAccessLogsInput
+  disconnect?: Prisma.ShareLinkWhereInput | boolean
+  delete?: Prisma.ShareLinkWhereInput | boolean
+  connect?: Prisma.ShareLinkWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShareLinkUpdateToOneWithWhereWithoutAccessLogsInput, Prisma.ShareLinkUpdateWithoutAccessLogsInput>, Prisma.ShareLinkUncheckedUpdateWithoutAccessLogsInput>
+}
+
 export type ShareLinkCreateWithoutDocumentInput = {
   id?: string
+  token?: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  accessLogs?: Prisma.AccessLogCreateNestedManyWithoutShareLinkInput
 }
 
 export type ShareLinkUncheckedCreateWithoutDocumentInput = {
   id?: string
+  token?: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutShareLinkInput
 }
 
 export type ShareLinkCreateOrConnectWithoutDocumentInput = {
@@ -380,71 +590,215 @@ export type ShareLinkScalarWhereInput = {
   OR?: Prisma.ShareLinkScalarWhereInput[]
   NOT?: Prisma.ShareLinkScalarWhereInput | Prisma.ShareLinkScalarWhereInput[]
   id?: Prisma.StringFilter<"ShareLink"> | string
+  token?: Prisma.StringFilter<"ShareLink"> | string
   documentId?: Prisma.StringFilter<"ShareLink"> | string
+  permission?: Prisma.EnumPermissionFilter<"ShareLink"> | $Enums.Permission
+  maxAccesses?: Prisma.IntNullableFilter<"ShareLink"> | number | null
   expiresAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  revokedAt?: Prisma.DateTimeNullableFilter<"ShareLink"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ShareLink"> | Date | string
+}
+
+export type ShareLinkCreateWithoutAccessLogsInput = {
+  id?: string
+  token?: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
+  expiresAt: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  document: Prisma.DocumentCreateNestedOneWithoutShareLinksInput
+}
+
+export type ShareLinkUncheckedCreateWithoutAccessLogsInput = {
+  id?: string
+  token?: string
+  documentId: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
+  expiresAt: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShareLinkCreateOrConnectWithoutAccessLogsInput = {
+  where: Prisma.ShareLinkWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShareLinkCreateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedCreateWithoutAccessLogsInput>
+}
+
+export type ShareLinkUpsertWithoutAccessLogsInput = {
+  update: Prisma.XOR<Prisma.ShareLinkUpdateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedUpdateWithoutAccessLogsInput>
+  create: Prisma.XOR<Prisma.ShareLinkCreateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedCreateWithoutAccessLogsInput>
+  where?: Prisma.ShareLinkWhereInput
+}
+
+export type ShareLinkUpdateToOneWithWhereWithoutAccessLogsInput = {
+  where?: Prisma.ShareLinkWhereInput
+  data: Prisma.XOR<Prisma.ShareLinkUpdateWithoutAccessLogsInput, Prisma.ShareLinkUncheckedUpdateWithoutAccessLogsInput>
+}
+
+export type ShareLinkUpdateWithoutAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  document?: Prisma.DocumentUpdateOneRequiredWithoutShareLinksNestedInput
+}
+
+export type ShareLinkUncheckedUpdateWithoutAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  documentId?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ShareLinkCreateManyDocumentInput = {
   id?: string
+  token?: string
+  permission?: $Enums.Permission
+  maxAccesses?: number | null
   expiresAt: Date | string
+  revokedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ShareLinkUpdateWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accessLogs?: Prisma.AccessLogUpdateManyWithoutShareLinkNestedInput
 }
 
 export type ShareLinkUncheckedUpdateWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutShareLinkNestedInput
 }
 
 export type ShareLinkUncheckedUpdateManyWithoutDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  permission?: Prisma.EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+  maxAccesses?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ShareLinkCountOutputType
+ */
+
+export type ShareLinkCountOutputType = {
+  accessLogs: number
+}
+
+export type ShareLinkCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  accessLogs?: boolean | ShareLinkCountOutputTypeCountAccessLogsArgs
+}
+
+/**
+ * ShareLinkCountOutputType without action
+ */
+export type ShareLinkCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShareLinkCountOutputType
+   */
+  select?: Prisma.ShareLinkCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ShareLinkCountOutputType without action
+ */
+export type ShareLinkCountOutputTypeCountAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccessLogWhereInput
+}
 
 
 export type ShareLinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  token?: boolean
   documentId?: boolean
+  permission?: boolean
+  maxAccesses?: boolean
   expiresAt?: boolean
+  revokedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  accessLogs?: boolean | Prisma.ShareLink$accessLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.ShareLinkCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shareLink"]>
 
 export type ShareLinkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  token?: boolean
   documentId?: boolean
+  permission?: boolean
+  maxAccesses?: boolean
   expiresAt?: boolean
+  revokedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shareLink"]>
 
 export type ShareLinkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  token?: boolean
   documentId?: boolean
+  permission?: boolean
+  maxAccesses?: boolean
   expiresAt?: boolean
+  revokedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shareLink"]>
 
 export type ShareLinkSelectScalar = {
   id?: boolean
+  token?: boolean
   documentId?: boolean
+  permission?: boolean
+  maxAccesses?: boolean
   expiresAt?: boolean
+  revokedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ShareLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentId" | "expiresAt" | "createdAt", ExtArgs["result"]["shareLink"]>
+export type ShareLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "documentId" | "permission" | "maxAccesses" | "expiresAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["shareLink"]>
 export type ShareLinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  accessLogs?: boolean | Prisma.ShareLink$accessLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.ShareLinkCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShareLinkIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
@@ -457,12 +811,18 @@ export type $ShareLinkPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "ShareLink"
   objects: {
     document: Prisma.$DocumentPayload<ExtArgs>
+    accessLogs: Prisma.$AccessLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    token: string
     documentId: string
+    permission: $Enums.Permission
+    maxAccesses: number | null
     expiresAt: Date
+    revokedAt: Date | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["shareLink"]>
   composites: {}
 }
@@ -858,6 +1218,7 @@ readonly fields: ShareLinkFieldRefs;
 export interface Prisma__ShareLinkClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   document<T extends Prisma.DocumentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentDefaultArgs<ExtArgs>>): Prisma.Prisma__DocumentClient<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  accessLogs<T extends Prisma.ShareLink$accessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShareLink$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -888,9 +1249,14 @@ export interface Prisma__ShareLinkClient<T, Null = never, ExtArgs extends runtim
  */
 export interface ShareLinkFieldRefs {
   readonly id: Prisma.FieldRef<"ShareLink", 'String'>
+  readonly token: Prisma.FieldRef<"ShareLink", 'String'>
   readonly documentId: Prisma.FieldRef<"ShareLink", 'String'>
+  readonly permission: Prisma.FieldRef<"ShareLink", 'Permission'>
+  readonly maxAccesses: Prisma.FieldRef<"ShareLink", 'Int'>
   readonly expiresAt: Prisma.FieldRef<"ShareLink", 'DateTime'>
+  readonly revokedAt: Prisma.FieldRef<"ShareLink", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ShareLink", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ShareLink", 'DateTime'>
 }
     
 
@@ -1284,6 +1650,30 @@ export type ShareLinkDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many ShareLinks to delete.
    */
   limit?: number
+}
+
+/**
+ * ShareLink.accessLogs
+ */
+export type ShareLink$accessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AccessLog
+   */
+  select?: Prisma.AccessLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AccessLog
+   */
+  omit?: Prisma.AccessLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccessLogInclude<ExtArgs> | null
+  where?: Prisma.AccessLogWhereInput
+  orderBy?: Prisma.AccessLogOrderByWithRelationInput | Prisma.AccessLogOrderByWithRelationInput[]
+  cursor?: Prisma.AccessLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccessLogScalarFieldEnum | Prisma.AccessLogScalarFieldEnum[]
 }
 
 /**

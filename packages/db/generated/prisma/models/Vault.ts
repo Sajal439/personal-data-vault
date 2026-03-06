@@ -29,6 +29,7 @@ export type VaultMinAggregateOutputType = {
   name: string | null
   userId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type VaultMaxAggregateOutputType = {
@@ -36,6 +37,7 @@ export type VaultMaxAggregateOutputType = {
   name: string | null
   userId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type VaultCountAggregateOutputType = {
@@ -43,6 +45,7 @@ export type VaultCountAggregateOutputType = {
   name: number
   userId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -52,6 +55,7 @@ export type VaultMinAggregateInputType = {
   name?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type VaultMaxAggregateInputType = {
@@ -59,6 +63,7 @@ export type VaultMaxAggregateInputType = {
   name?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type VaultCountAggregateInputType = {
@@ -66,6 +71,7 @@ export type VaultCountAggregateInputType = {
   name?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -146,6 +152,7 @@ export type VaultGroupByOutputType = {
   name: string
   userId: string
   createdAt: Date
+  updatedAt: Date
   _count: VaultCountAggregateOutputType | null
   _min: VaultMinAggregateOutputType | null
   _max: VaultMaxAggregateOutputType | null
@@ -174,6 +181,7 @@ export type VaultWhereInput = {
   name?: Prisma.StringFilter<"Vault"> | string
   userId?: Prisma.StringFilter<"Vault"> | string
   createdAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   folders?: Prisma.FolderListRelationFilter
 }
@@ -183,6 +191,7 @@ export type VaultOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   folders?: Prisma.FolderOrderByRelationAggregateInput
 }
@@ -195,6 +204,7 @@ export type VaultWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Vault"> | string
   userId?: Prisma.StringFilter<"Vault"> | string
   createdAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   folders?: Prisma.FolderListRelationFilter
 }, "id">
@@ -204,6 +214,7 @@ export type VaultOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.VaultCountOrderByAggregateInput
   _max?: Prisma.VaultMaxOrderByAggregateInput
   _min?: Prisma.VaultMinOrderByAggregateInput
@@ -217,12 +228,14 @@ export type VaultScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Vault"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Vault"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Vault"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Vault"> | Date | string
 }
 
 export type VaultCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutVaultsInput
   folders?: Prisma.FolderCreateNestedManyWithoutVaultInput
 }
@@ -232,6 +245,7 @@ export type VaultUncheckedCreateInput = {
   name: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   folders?: Prisma.FolderUncheckedCreateNestedManyWithoutVaultInput
 }
 
@@ -239,6 +253,7 @@ export type VaultUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutVaultsNestedInput
   folders?: Prisma.FolderUpdateManyWithoutVaultNestedInput
 }
@@ -248,6 +263,7 @@ export type VaultUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folders?: Prisma.FolderUncheckedUpdateManyWithoutVaultNestedInput
 }
 
@@ -256,12 +272,14 @@ export type VaultCreateManyInput = {
   name: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type VaultUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type VaultUncheckedUpdateManyInput = {
@@ -269,6 +287,7 @@ export type VaultUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type VaultListRelationFilter = {
@@ -286,6 +305,7 @@ export type VaultCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type VaultMaxOrderByAggregateInput = {
@@ -293,6 +313,7 @@ export type VaultMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type VaultMinOrderByAggregateInput = {
@@ -300,6 +321,7 @@ export type VaultMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type VaultScalarRelationFilter = {
@@ -367,6 +389,7 @@ export type VaultCreateWithoutUserInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   folders?: Prisma.FolderCreateNestedManyWithoutVaultInput
 }
 
@@ -374,6 +397,7 @@ export type VaultUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   folders?: Prisma.FolderUncheckedCreateNestedManyWithoutVaultInput
 }
 
@@ -411,12 +435,14 @@ export type VaultScalarWhereInput = {
   name?: Prisma.StringFilter<"Vault"> | string
   userId?: Prisma.StringFilter<"Vault"> | string
   createdAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Vault"> | Date | string
 }
 
 export type VaultCreateWithoutFoldersInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutVaultsInput
 }
 
@@ -425,6 +451,7 @@ export type VaultUncheckedCreateWithoutFoldersInput = {
   name: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type VaultCreateOrConnectWithoutFoldersInput = {
@@ -447,6 +474,7 @@ export type VaultUpdateWithoutFoldersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutVaultsNestedInput
 }
 
@@ -455,18 +483,21 @@ export type VaultUncheckedUpdateWithoutFoldersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type VaultCreateManyUserInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type VaultUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folders?: Prisma.FolderUpdateManyWithoutVaultNestedInput
 }
 
@@ -474,6 +505,7 @@ export type VaultUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folders?: Prisma.FolderUncheckedUpdateManyWithoutVaultNestedInput
 }
 
@@ -481,6 +513,7 @@ export type VaultUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -519,6 +552,7 @@ export type VaultSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   folders?: boolean | Prisma.Vault$foldersArgs<ExtArgs>
   _count?: boolean | Prisma.VaultCountOutputTypeDefaultArgs<ExtArgs>
@@ -529,6 +563,7 @@ export type VaultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vault"]>
 
@@ -537,6 +572,7 @@ export type VaultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vault"]>
 
@@ -545,9 +581,10 @@ export type VaultSelectScalar = {
   name?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type VaultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "userId" | "createdAt", ExtArgs["result"]["vault"]>
+export type VaultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["vault"]>
 export type VaultInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   folders?: boolean | Prisma.Vault$foldersArgs<ExtArgs>
@@ -571,6 +608,7 @@ export type $VaultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name: string
     userId: string
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["vault"]>
   composites: {}
 }
@@ -1000,6 +1038,7 @@ export interface VaultFieldRefs {
   readonly name: Prisma.FieldRef<"Vault", 'String'>
   readonly userId: Prisma.FieldRef<"Vault", 'String'>
   readonly createdAt: Prisma.FieldRef<"Vault", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Vault", 'DateTime'>
 }
     
 

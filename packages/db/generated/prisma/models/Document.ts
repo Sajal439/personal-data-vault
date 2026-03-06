@@ -44,7 +44,9 @@ export type DocumentMinAggregateOutputType = {
   encrypted: boolean | null
   encryptionIv: string | null
   encryptionAlgo: string | null
+  encryptionTag: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DocumentMaxAggregateOutputType = {
@@ -57,7 +59,9 @@ export type DocumentMaxAggregateOutputType = {
   encrypted: boolean | null
   encryptionIv: string | null
   encryptionAlgo: string | null
+  encryptionTag: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DocumentCountAggregateOutputType = {
@@ -70,7 +74,9 @@ export type DocumentCountAggregateOutputType = {
   encrypted: number
   encryptionIv: number
   encryptionAlgo: number
+  encryptionTag: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -93,7 +99,9 @@ export type DocumentMinAggregateInputType = {
   encrypted?: true
   encryptionIv?: true
   encryptionAlgo?: true
+  encryptionTag?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type DocumentMaxAggregateInputType = {
@@ -106,7 +114,9 @@ export type DocumentMaxAggregateInputType = {
   encrypted?: true
   encryptionIv?: true
   encryptionAlgo?: true
+  encryptionTag?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type DocumentCountAggregateInputType = {
@@ -119,7 +129,9 @@ export type DocumentCountAggregateInputType = {
   encrypted?: true
   encryptionIv?: true
   encryptionAlgo?: true
+  encryptionTag?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -219,7 +231,9 @@ export type DocumentGroupByOutputType = {
   encrypted: boolean
   encryptionIv: string | null
   encryptionAlgo: string | null
+  encryptionTag: string | null
   createdAt: Date
+  updatedAt: Date
   _count: DocumentCountAggregateOutputType | null
   _avg: DocumentAvgAggregateOutputType | null
   _sum: DocumentSumAggregateOutputType | null
@@ -255,10 +269,13 @@ export type DocumentWhereInput = {
   encrypted?: Prisma.BoolFilter<"Document"> | boolean
   encryptionIv?: Prisma.StringNullableFilter<"Document"> | string | null
   encryptionAlgo?: Prisma.StringNullableFilter<"Document"> | string | null
+  encryptionTag?: Prisma.StringNullableFilter<"Document"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   folder?: Prisma.XOR<Prisma.FolderScalarRelationFilter, Prisma.FolderWhereInput>
   shareLinks?: Prisma.ShareLinkListRelationFilter
   accessLogs?: Prisma.AccessLogListRelationFilter
+  tags?: Prisma.DocumentTagListRelationFilter
 }
 
 export type DocumentOrderByWithRelationInput = {
@@ -271,10 +288,13 @@ export type DocumentOrderByWithRelationInput = {
   encrypted?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrderInput | Prisma.SortOrder
   encryptionAlgo?: Prisma.SortOrderInput | Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   folder?: Prisma.FolderOrderByWithRelationInput
   shareLinks?: Prisma.ShareLinkOrderByRelationAggregateInput
   accessLogs?: Prisma.AccessLogOrderByRelationAggregateInput
+  tags?: Prisma.DocumentTagOrderByRelationAggregateInput
 }
 
 export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -290,10 +310,13 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   encrypted?: Prisma.BoolFilter<"Document"> | boolean
   encryptionIv?: Prisma.StringNullableFilter<"Document"> | string | null
   encryptionAlgo?: Prisma.StringNullableFilter<"Document"> | string | null
+  encryptionTag?: Prisma.StringNullableFilter<"Document"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   folder?: Prisma.XOR<Prisma.FolderScalarRelationFilter, Prisma.FolderWhereInput>
   shareLinks?: Prisma.ShareLinkListRelationFilter
   accessLogs?: Prisma.AccessLogListRelationFilter
+  tags?: Prisma.DocumentTagListRelationFilter
 }, "id">
 
 export type DocumentOrderByWithAggregationInput = {
@@ -306,7 +329,9 @@ export type DocumentOrderByWithAggregationInput = {
   encrypted?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrderInput | Prisma.SortOrder
   encryptionAlgo?: Prisma.SortOrderInput | Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.DocumentCountOrderByAggregateInput
   _avg?: Prisma.DocumentAvgOrderByAggregateInput
   _max?: Prisma.DocumentMaxOrderByAggregateInput
@@ -327,7 +352,9 @@ export type DocumentScalarWhereWithAggregatesInput = {
   encrypted?: Prisma.BoolWithAggregatesFilter<"Document"> | boolean
   encryptionIv?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   encryptionAlgo?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  encryptionTag?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
 }
 
 export type DocumentCreateInput = {
@@ -336,13 +363,16 @@ export type DocumentCreateInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   folder: Prisma.FolderCreateNestedOneWithoutDocumentsInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutDocumentInput
   accessLogs?: Prisma.AccessLogCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateInput = {
@@ -352,12 +382,15 @@ export type DocumentUncheckedCreateInput = {
   mimeType: string
   size: number
   folderId: string
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutDocumentInput
   accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUpdateInput = {
@@ -369,10 +402,13 @@ export type DocumentUpdateInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folder?: Prisma.FolderUpdateOneRequiredWithoutDocumentsNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutDocumentNestedInput
   accessLogs?: Prisma.AccessLogUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateInput = {
@@ -385,9 +421,12 @@ export type DocumentUncheckedUpdateInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutDocumentNestedInput
   accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyInput = {
@@ -397,10 +436,12 @@ export type DocumentCreateManyInput = {
   mimeType: string
   size: number
   folderId: string
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DocumentUpdateManyMutationInput = {
@@ -412,7 +453,9 @@ export type DocumentUpdateManyMutationInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DocumentUncheckedUpdateManyInput = {
@@ -425,7 +468,9 @@ export type DocumentUncheckedUpdateManyInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DocumentListRelationFilter = {
@@ -448,7 +493,9 @@ export type DocumentCountOrderByAggregateInput = {
   encrypted?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionAlgo?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DocumentAvgOrderByAggregateInput = {
@@ -465,7 +512,9 @@ export type DocumentMaxOrderByAggregateInput = {
   encrypted?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionAlgo?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DocumentMinOrderByAggregateInput = {
@@ -478,7 +527,9 @@ export type DocumentMinOrderByAggregateInput = {
   encrypted?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionAlgo?: Prisma.SortOrder
+  encryptionTag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DocumentSumOrderByAggregateInput = {
@@ -544,6 +595,20 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type DocumentCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutTagsInput, Prisma.DocumentUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutTagsInput
+  connect?: Prisma.DocumentWhereUniqueInput
+}
+
+export type DocumentUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutTagsInput, Prisma.DocumentUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.DocumentUpsertWithoutTagsInput
+  connect?: Prisma.DocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutTagsInput, Prisma.DocumentUpdateWithoutTagsInput>, Prisma.DocumentUncheckedUpdateWithoutTagsInput>
+}
+
 export type DocumentCreateNestedOneWithoutShareLinksInput = {
   create?: Prisma.XOR<Prisma.DocumentCreateWithoutShareLinksInput, Prisma.DocumentUncheckedCreateWithoutShareLinksInput>
   connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutShareLinksInput
@@ -578,12 +643,15 @@ export type DocumentCreateWithoutFolderInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutDocumentInput
   accessLogs?: Prisma.AccessLogCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutFolderInput = {
@@ -592,12 +660,15 @@ export type DocumentUncheckedCreateWithoutFolderInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutDocumentInput
   accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutFolderInput = {
@@ -639,7 +710,93 @@ export type DocumentScalarWhereInput = {
   encrypted?: Prisma.BoolFilter<"Document"> | boolean
   encryptionIv?: Prisma.StringNullableFilter<"Document"> | string | null
   encryptionAlgo?: Prisma.StringNullableFilter<"Document"> | string | null
+  encryptionTag?: Prisma.StringNullableFilter<"Document"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+}
+
+export type DocumentCreateWithoutTagsInput = {
+  id?: string
+  title: string
+  fileKey: string
+  mimeType: string
+  size: number
+  encrypted?: boolean
+  encryptionIv?: string | null
+  encryptionAlgo?: string | null
+  encryptionTag?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  folder: Prisma.FolderCreateNestedOneWithoutDocumentsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutDocumentInput
+  accessLogs?: Prisma.AccessLogCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentUncheckedCreateWithoutTagsInput = {
+  id?: string
+  title: string
+  fileKey: string
+  mimeType: string
+  size: number
+  folderId: string
+  encrypted?: boolean
+  encryptionIv?: string | null
+  encryptionAlgo?: string | null
+  encryptionTag?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutDocumentInput
+  accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentCreateOrConnectWithoutTagsInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutTagsInput, Prisma.DocumentUncheckedCreateWithoutTagsInput>
+}
+
+export type DocumentUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutTagsInput, Prisma.DocumentUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutTagsInput, Prisma.DocumentUncheckedCreateWithoutTagsInput>
+  where?: Prisma.DocumentWhereInput
+}
+
+export type DocumentUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.DocumentWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutTagsInput, Prisma.DocumentUncheckedUpdateWithoutTagsInput>
+}
+
+export type DocumentUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  folder?: Prisma.FolderUpdateOneRequiredWithoutDocumentsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutDocumentNestedInput
+  accessLogs?: Prisma.AccessLogUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  folderId?: Prisma.StringFieldUpdateOperationsInput | string
+  encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutDocumentNestedInput
+  accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateWithoutShareLinksInput = {
@@ -648,12 +805,15 @@ export type DocumentCreateWithoutShareLinksInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   folder: Prisma.FolderCreateNestedOneWithoutDocumentsInput
   accessLogs?: Prisma.AccessLogCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutShareLinksInput = {
@@ -663,11 +823,14 @@ export type DocumentUncheckedCreateWithoutShareLinksInput = {
   mimeType: string
   size: number
   folderId: string
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   accessLogs?: Prisma.AccessLogUncheckedCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutShareLinksInput = {
@@ -695,9 +858,12 @@ export type DocumentUpdateWithoutShareLinksInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folder?: Prisma.FolderUpdateOneRequiredWithoutDocumentsNestedInput
   accessLogs?: Prisma.AccessLogUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutShareLinksInput = {
@@ -710,8 +876,11 @@ export type DocumentUncheckedUpdateWithoutShareLinksInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateWithoutAccessLogsInput = {
@@ -720,12 +889,15 @@ export type DocumentCreateWithoutAccessLogsInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   folder: Prisma.FolderCreateNestedOneWithoutDocumentsInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutAccessLogsInput = {
@@ -735,11 +907,14 @@ export type DocumentUncheckedCreateWithoutAccessLogsInput = {
   mimeType: string
   size: number
   folderId: string
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutDocumentInput
+  tags?: Prisma.DocumentTagUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutAccessLogsInput = {
@@ -767,9 +942,12 @@ export type DocumentUpdateWithoutAccessLogsInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   folder?: Prisma.FolderUpdateOneRequiredWithoutDocumentsNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutAccessLogsInput = {
@@ -782,8 +960,11 @@ export type DocumentUncheckedUpdateWithoutAccessLogsInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyFolderInput = {
@@ -792,10 +973,12 @@ export type DocumentCreateManyFolderInput = {
   fileKey: string
   mimeType: string
   size: number
-  encrypted: boolean
+  encrypted?: boolean
   encryptionIv?: string | null
   encryptionAlgo?: string | null
+  encryptionTag?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DocumentUpdateWithoutFolderInput = {
@@ -807,9 +990,12 @@ export type DocumentUpdateWithoutFolderInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutDocumentNestedInput
   accessLogs?: Prisma.AccessLogUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutFolderInput = {
@@ -821,9 +1007,12 @@ export type DocumentUncheckedUpdateWithoutFolderInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutDocumentNestedInput
   accessLogs?: Prisma.AccessLogUncheckedUpdateManyWithoutDocumentNestedInput
+  tags?: Prisma.DocumentTagUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateManyWithoutFolderInput = {
@@ -835,7 +1024,9 @@ export type DocumentUncheckedUpdateManyWithoutFolderInput = {
   encrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   encryptionAlgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encryptionTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -846,11 +1037,13 @@ export type DocumentUncheckedUpdateManyWithoutFolderInput = {
 export type DocumentCountOutputType = {
   shareLinks: number
   accessLogs: number
+  tags: number
 }
 
 export type DocumentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shareLinks?: boolean | DocumentCountOutputTypeCountShareLinksArgs
   accessLogs?: boolean | DocumentCountOutputTypeCountAccessLogsArgs
+  tags?: boolean | DocumentCountOutputTypeCountTagsArgs
 }
 
 /**
@@ -877,6 +1070,13 @@ export type DocumentCountOutputTypeCountAccessLogsArgs<ExtArgs extends runtime.T
   where?: Prisma.AccessLogWhereInput
 }
 
+/**
+ * DocumentCountOutputType without action
+ */
+export type DocumentCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentTagWhereInput
+}
+
 
 export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -888,10 +1088,13 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   encrypted?: boolean
   encryptionIv?: boolean
   encryptionAlgo?: boolean
+  encryptionTag?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   folder?: boolean | Prisma.FolderDefaultArgs<ExtArgs>
   shareLinks?: boolean | Prisma.Document$shareLinksArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Document$accessLogsArgs<ExtArgs>
+  tags?: boolean | Prisma.Document$tagsArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -905,7 +1108,9 @@ export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   encrypted?: boolean
   encryptionIv?: boolean
   encryptionAlgo?: boolean
+  encryptionTag?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   folder?: boolean | Prisma.FolderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -919,7 +1124,9 @@ export type DocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   encrypted?: boolean
   encryptionIv?: boolean
   encryptionAlgo?: boolean
+  encryptionTag?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   folder?: boolean | Prisma.FolderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -933,14 +1140,17 @@ export type DocumentSelectScalar = {
   encrypted?: boolean
   encryptionIv?: boolean
   encryptionAlgo?: boolean
+  encryptionTag?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "fileKey" | "mimeType" | "size" | "folderId" | "encrypted" | "encryptionIv" | "encryptionAlgo" | "createdAt", ExtArgs["result"]["document"]>
+export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "fileKey" | "mimeType" | "size" | "folderId" | "encrypted" | "encryptionIv" | "encryptionAlgo" | "encryptionTag" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
 export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   folder?: boolean | Prisma.FolderDefaultArgs<ExtArgs>
   shareLinks?: boolean | Prisma.Document$shareLinksArgs<ExtArgs>
   accessLogs?: boolean | Prisma.Document$accessLogsArgs<ExtArgs>
+  tags?: boolean | Prisma.Document$tagsArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DocumentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -956,6 +1166,7 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     folder: Prisma.$FolderPayload<ExtArgs>
     shareLinks: Prisma.$ShareLinkPayload<ExtArgs>[]
     accessLogs: Prisma.$AccessLogPayload<ExtArgs>[]
+    tags: Prisma.$DocumentTagPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -967,7 +1178,9 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     encrypted: boolean
     encryptionIv: string | null
     encryptionAlgo: string | null
+    encryptionTag: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["document"]>
   composites: {}
 }
@@ -1365,6 +1578,7 @@ export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends runtime
   folder<T extends Prisma.FolderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FolderDefaultArgs<ExtArgs>>): Prisma.Prisma__FolderClient<runtime.Types.Result.GetResult<Prisma.$FolderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   shareLinks<T extends Prisma.Document$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accessLogs<T extends Prisma.Document$accessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tags<T extends Prisma.Document$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1403,7 +1617,9 @@ export interface DocumentFieldRefs {
   readonly encrypted: Prisma.FieldRef<"Document", 'Boolean'>
   readonly encryptionIv: Prisma.FieldRef<"Document", 'String'>
   readonly encryptionAlgo: Prisma.FieldRef<"Document", 'String'>
+  readonly encryptionTag: Prisma.FieldRef<"Document", 'String'>
   readonly createdAt: Prisma.FieldRef<"Document", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Document", 'DateTime'>
 }
     
 
@@ -1845,6 +2061,30 @@ export type Document$accessLogsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AccessLogScalarFieldEnum | Prisma.AccessLogScalarFieldEnum[]
+}
+
+/**
+ * Document.tags
+ */
+export type Document$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentTag
+   */
+  select?: Prisma.DocumentTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DocumentTag
+   */
+  omit?: Prisma.DocumentTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentTagInclude<ExtArgs> | null
+  where?: Prisma.DocumentTagWhereInput
+  orderBy?: Prisma.DocumentTagOrderByWithRelationInput | Prisma.DocumentTagOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentTagScalarFieldEnum | Prisma.DocumentTagScalarFieldEnum[]
 }
 
 /**

@@ -1,0 +1,213 @@
+@baseUrl = http://localhost:4000
+# Note: After running the login request, copy the token from the response
+# and replace the value below, or if using VS Code REST Client, it might auto-resolve if configured,
+# but for simplicity, replace your_token_here with the actual JWT.
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YTQ1ZjIyZC1mMDQ4LTQ0MWQtYTc5Mi1mYmFlNGI0MmU4ZjciLCJpYXQiOjE3NzI4MTcyMTYsImV4cCI6MTc3MzQyMjAxNn0.Lab7MD7YuT8cEXcOEmYxBzJdxltVrI_BoP0Rv5Ek8Lo
+
+# ==========================================
+# 1. AUTHENTICATION
+# ==========================================
+
+### Signup
+# @name signup
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "name": "John Doe",
+  "password": "Password123!"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "password": "Password123!"
+}
+
+# ==========================================
+# 2. PROFILE
+# ==========================================
+
+### Get Profile
+GET {{baseUrl}}/profile
+Authorization: Bearer {{authToken}}
+
+### Update Profile
+PUT {{baseUrl}}/profile
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "John Updated Doe",
+  "bio": "Software Engineer focusing on privacy."
+}
+
+# ==========================================
+# 3. VAULT
+# ==========================================
+
+### Create Vault
+# @name createVault
+POST {{baseUrl}}/vault
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "Personal Documents"
+}
+
+### List Vaults
+GET {{baseUrl}}/vault
+Authorization: Bearer {{authToken}}
+
+### Delete Vault (Replace :vaultId)
+DELETE {{baseUrl}}/vault/330100f3-e9dc-448b-825c-730d849552f6
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 4. FOLDER
+# ==========================================
+
+### Create Folder in Vault (Replace :vaultId)
+# @name createFolder
+POST {{baseUrl}}/folder/vault/f4e0503d-3a85-49bb-ad19-f70b4ef4c120/folder
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "Taxes 2024"
+}
+
+### List Folders in Vault (Replace :vaultId)
+GET {{baseUrl}}/folder/vault/f4e0503d-3a85-49bb-ad19-f70b4ef4c120/folder
+Authorization: Bearer {{authToken}}
+
+### Delete Folder (Replace :folderId)
+DELETE {{baseUrl}}/folder/b9309592-e696-4ad0-9648-6fc169bc8ace
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 5. DOCUMENT (Multipart Uploads)
+# ==========================================
+
+### Upload Document
+# In REST Client, you can do multipart like this. Replace :folderId
+POST {{baseUrl}}/document/upload
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="folderId"
+
+:folderId
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+Content-Type: text/plain
+
+This is a secret document that will be encrypted!
+--WebAppBoundary--
+
+### List Documents in Folder (Replace :folderId)
+GET {{baseUrl}}/document/folder/:folderId
+Authorization: Bearer {{authToken}}
+
+### Get Document Metadata (Replace :documentId)
+GET {{baseUrl}}/document/:documentId
+Authorization: Bearer {{authToken}}
+
+### Download Document (Replace :documentId)
+GET {{baseUrl}}/document/:documentId/download
+Authorization: Bearer {{authToken}}
+
+### Delete Document (Replace :documentId)
+DELETE {{baseUrl}}/document/:documentId
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 6. TAGS
+# ==========================================
+
+### Create Tag
+# @name createTag
+POST {{baseUrl}}/tag
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "Important"
+}
+
+### List Tags
+GET {{baseUrl}}/tag
+Authorization: Bearer {{authToken}}
+
+### Add Tag to Document (Replace :tagId and :documentId)
+POST {{baseUrl}}/tag/:tagId/document/:documentId
+Authorization: Bearer {{authToken}}
+
+### Remove Tag from Document (Replace :tagId and :documentId)
+DELETE {{baseUrl}}/tag/:tagId/document/:documentId
+Authorization: Bearer {{authToken}}
+
+### Get Documents by Tag (Replace :tagId)
+GET {{baseUrl}}/tag/:tagId/documents
+Authorization: Bearer {{authToken}}
+
+### Delete Tag (Replace :tagId)
+DELETE {{baseUrl}}/tag/:tagId
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 7. SEARCH
+# ==========================================
+
+### Search Documents
+GET {{baseUrl}}/search?q=secret
+Authorization: Bearer {{authToken}}
+
+
+# ==========================================
+# 8. SECURE SHARING
+# ==========================================
+
+### Create Share Link (Replace :documentId)
+# @name createShareLink
+POST {{baseUrl}}/share
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "documentId": ":documentId",
+  "expiresInHours": 24,
+  "permission": "DOWNLOAD",
+  "maxAccesses": 5
+}
+
+### List Share Links for Document (Replace :documentId)
+GET {{baseUrl}}/share/document/:documentId
+Authorization: Bearer {{authToken}}
+
+### Revoke Share Link (Replace :shareId)
+DELETE {{baseUrl}}/share/:shareId
+Authorization: Bearer {{authToken}}
+
+### Get Access Logs for Document (Replace :documentId)
+GET {{baseUrl}}/share/document/:documentId/logs
+Authorization: Bearer {{authToken}}
+
+# --- Public Endpoints (No Auth Required) ---
+
+### View Shared Document Metadata (Replace :token)
+GET {{baseUrl}}/share/public/:token
+
+### Download Shared Document (Replace :token)
+GET {{baseUrl}}/share/public/:token/download

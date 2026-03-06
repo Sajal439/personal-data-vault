@@ -38,6 +38,16 @@ export type Folder = Prisma.FolderModel
  */
 export type Document = Prisma.DocumentModel
 /**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model DocumentTag
+ * 
+ */
+export type DocumentTag = Prisma.DocumentTagModel
+/**
  * Model ShareLink
  * 
  */

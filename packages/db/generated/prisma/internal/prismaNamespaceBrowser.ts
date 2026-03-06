@@ -55,6 +55,8 @@ export const ModelName = {
   Vault: 'Vault',
   Folder: 'Folder',
   Document: 'Document',
+  Tag: 'Tag',
+  DocumentTag: 'DocumentTag',
   ShareLink: 'ShareLink',
   AccessLog: 'AccessLog'
 } as const
@@ -80,7 +82,10 @@ export const UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   password: 'password',
-  createdAt: 'createdAt'
+  avatarUrl: 'avatarUrl',
+  bio: 'bio',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -90,7 +95,8 @@ export const VaultScalarFieldEnum = {
   id: 'id',
   name: 'name',
   userId: 'userId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type VaultScalarFieldEnum = (typeof VaultScalarFieldEnum)[keyof typeof VaultScalarFieldEnum]
@@ -116,17 +122,43 @@ export const DocumentScalarFieldEnum = {
   encrypted: 'encrypted',
   encryptionIv: 'encryptionIv',
   encryptionAlgo: 'encryptionAlgo',
-  createdAt: 'createdAt'
+  encryptionTag: 'encryptionTag',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
 
 
-export const ShareLinkScalarFieldEnum = {
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const DocumentTagScalarFieldEnum = {
   id: 'id',
   documentId: 'documentId',
+  tagId: 'tagId'
+} as const
+
+export type DocumentTagScalarFieldEnum = (typeof DocumentTagScalarFieldEnum)[keyof typeof DocumentTagScalarFieldEnum]
+
+
+export const ShareLinkScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  documentId: 'documentId',
+  permission: 'permission',
+  maxAccesses: 'maxAccesses',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ShareLinkScalarFieldEnum = (typeof ShareLinkScalarFieldEnum)[keyof typeof ShareLinkScalarFieldEnum]
@@ -135,8 +167,10 @@ export type ShareLinkScalarFieldEnum = (typeof ShareLinkScalarFieldEnum)[keyof t
 export const AccessLogScalarFieldEnum = {
   id: 'id',
   documentId: 'documentId',
+  shareLinkId: 'shareLinkId',
   accessedAt: 'accessedAt',
-  ipAddress: 'ipAddress'
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent'
 } as const
 
 export type AccessLogScalarFieldEnum = (typeof AccessLogScalarFieldEnum)[keyof typeof AccessLogScalarFieldEnum]
