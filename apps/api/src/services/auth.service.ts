@@ -1,8 +1,15 @@
 import bcrypt from "bcrypt";
 import { prisma } from "@repo/db";
-import { signToken } from "../utils/jwt.js";
-import { AuthResponse } from "@repo/types";
+import { signRefreshToken, signToken, verifyRefreshToken } from "../utils/jwt.js";
+import { AuthResponse, RefreshTokenResponse } from "@repo/types";
 import { ApiError } from "../utils/apiError.js";
+
+function createAuthTokens(userId: string) {
+  const token = signToken({ userId });
+  const refreshToken = signRefreshToken({ userId });
+
+  return { token, refreshToken };
+}
 
 export async function signup(
   email: string,
@@ -30,12 +37,11 @@ export async function signup(
     },
   });
 
-  const token = signToken({
-    userId: user.id,
-  });
+  const { token, refreshToken } = createAuthTokens(user.id);
 
   return {
     token,
+    refreshToken,
     user,
   };
 }
@@ -49,7 +55,7 @@ export async function login(
   });
 
   if (!user) {
-    throw new ApiError(401, "Email already Registered");
+    throw new ApiError(401, "Invalid credentials");
   }
 
   const valid = await bcrypt.compare(password, user.password);
@@ -58,16 +64,40 @@ export async function login(
     throw new ApiError(401, "Invalid credentials");
   }
 
-  const token = signToken({
-    userId: user.id,
-  });
+  const { token, refreshToken } = createAuthTokens(user.id);
 
   return {
     token,
+    refreshToken,
     user: {
       id: user.id,
       email: user.email,
       createdAt: user.createdAt,
     },
   };
+}
+
+export async function refreshAuthToken(
+  refreshToken: string,
+): Promise<RefreshTokenResponse> {
+  let payload;
+
+  try {
+    payload = verifyRefreshToken(refreshToken);
+  } catch {
+    throw new ApiError(401, "Invalid or expired refresh token");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: payload.userId },
+    select: { id: true },
+  });
+
+  if (!user) {
+    throw new ApiError(401, "Invalid refresh token");
+  }
+
+  const nextTokens = createAuthTokens(user.id);
+
+  return nextTokens;
 }

@@ -25,6 +25,8 @@ export const config = {
   port: parseInt(process.env.API_PORT || process.env.PORT || "4000", 10),
   redisUrl: process.env.REDIS_URL || "redis://localhost:6379",
   jwtSecret: process.env.JWT_SECRET || "",
+  refreshTokenSecret:
+    process.env.REFRESH_TOKEN_SECRET || `${process.env.JWT_SECRET || ""}_refresh`,
   minio: {
     endpoint: storageEndpoint,
     url: new URL(storageEndpoint),

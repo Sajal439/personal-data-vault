@@ -20,5 +20,15 @@ export interface JwtPayload {
 
 export interface AuthResponse {
   token: string;
+  refreshToken: string;
   user: AuthUser;
+}
+
+export interface RefreshTokenRequest {
+  refreshToken: string;
+}
+
+export interface RefreshTokenResponse {
+  token: string;
+  refreshToken: string;
 }
