@@ -15,6 +15,7 @@ import reminderRoutes from "./routes/reminder.route.js";
 import aiRoutes from "./routes/ai.route.js";
 import integrationRoutes from "./routes/integration.route.js";
 import { ensureBucket } from "./services/storage.service.js";
+import { config } from "@repo/config";
 
 const server = Fastify({
   logger: true,
@@ -36,7 +37,7 @@ server.setErrorHandler((error: FastifyError, request, reply) => {
 // ─── Plugins ─────────────────────────────────────────────────────
 
 server.register(cors, {
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  origin: config.corsOrigin,
   credentials: true,
 });
 
@@ -81,7 +82,7 @@ const start = async () => {
     // Ensure storage bucket exists before accepting requests
     await ensureBucket();
 
-    const port = Number(process.env.API_PORT) || 4000;
+    const port = config.port;
 
     await server.listen({
       port,

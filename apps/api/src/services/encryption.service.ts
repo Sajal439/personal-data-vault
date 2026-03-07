@@ -1,8 +1,9 @@
 import crypto from "node:crypto";
-import { Readable, Transform, TransformCallback } from "node:stream";
+import { Readable } from "node:stream";
 
 const ALGORITHM = "aes-256-gcm";
 const IV_LENGTH = 16;
+const SECRET_PREFIX = "enc:v1";
 
 import { config } from "@repo/config";
 
@@ -73,4 +74,56 @@ export async function streamToBuffer(stream: Readable): Promise<Buffer> {
     chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
   }
   return Buffer.concat(chunks);
+}
+
+/**
+ * Encrypts a short secret and returns a serialized payload suitable for DB storage.
+ */
+export function encryptSecret(secret: string): string {
+  const key = getMasterKey();
+  const iv = crypto.randomBytes(IV_LENGTH);
+  const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
+
+  let encrypted = cipher.update(secret, "utf8", "base64");
+  encrypted += cipher.final("base64");
+
+  const authTag = cipher.getAuthTag().toString("base64");
+  const ivEncoded = iv.toString("base64");
+
+  return `${SECRET_PREFIX}:${ivEncoded}:${authTag}:${encrypted}`;
+}
+
+/**
+ * Decrypts a serialized secret payload.
+ */
+export function decryptSecret(payload: string): string {
+  const [prefix, version, ivEncoded, authTagEncoded, encrypted] =
+    payload.split(":");
+
+  if (
+    !prefix ||
+    !version ||
+    !ivEncoded ||
+    !authTagEncoded ||
+    !encrypted ||
+    `${prefix}:${version}` !== SECRET_PREFIX
+  ) {
+    throw new Error("Invalid encrypted secret format");
+  }
+
+  const key = getMasterKey();
+  const iv = Buffer.from(ivEncoded, "base64");
+  const authTag = Buffer.from(authTagEncoded, "base64");
+
+  const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+  decipher.setAuthTag(authTag);
+
+  let decrypted = decipher.update(encrypted, "base64", "utf8");
+  decrypted += decipher.final("utf8");
+
+  return decrypted;
+}
+
+export function isEncryptedSecret(value: string): boolean {
+  return value.startsWith(`${SECRET_PREFIX}:`);
 }

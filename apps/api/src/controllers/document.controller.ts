@@ -8,6 +8,7 @@ import {
   getDocumentsByFolder,
   getDocumentById,
   deleteDocument,
+  ensureFolderOwnedByUser,
 } from "../services/document.service.js";
 import {
   uploadFile,
@@ -40,6 +41,7 @@ export const uploadDocumentController = asyncHandler(
     }
 
     const userId = req.user!.userId;
+    await ensureFolderOwnedByUser(folderId, userId);
 
     // Collect file stream into buffer
     const plainBuffer = await streamToBuffer(file);
@@ -56,7 +58,7 @@ export const uploadDocumentController = asyncHandler(
     await uploadFile(fileKey, encrypted, mimetype, encrypted.length);
 
     // Save metadata to database
-    const document = await createDocumentMetadata({
+    const document = await createDocumentMetadata(userId, {
       title: filename,
       mimeType: mimetype,
       size: fileSize,
@@ -66,6 +68,9 @@ export const uploadDocumentController = asyncHandler(
       encryptionIv: iv,
       encryptionAlgo: algorithm,
       encryptionTag: authTag,
+    }).catch(async (error) => {
+      await deleteFile(fileKey).catch(() => {});
+      throw error;
     });
 
     // Enqueue background AI Processing Job

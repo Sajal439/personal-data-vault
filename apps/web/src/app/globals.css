@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #11203f;
+  --paper: #f7f7ef;
+  --panel: #fffef8;
+  --accent: #ef6a2f;
+  --accent-2: #3cae8f;
+  --line: #d9d0bf;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-heading);
+  --font-mono: var(--font-ui-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, #ffdec4 0%, transparent 38%),
+    radial-gradient(circle at 90% 12%, #caefe4 0%, transparent 34%),
+    var(--paper);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 420ms ease-out both;
 }

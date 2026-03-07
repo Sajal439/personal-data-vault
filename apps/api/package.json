@@ -5,8 +5,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx src/server.ts"
+    "dev": "node ../../node_modules/tsx/dist/cli.mjs src/server.ts",
+    "build": "node ../../node_modules/typescript/bin/tsc",
+    "typecheck": "node ../../node_modules/typescript/bin/tsc --noEmit",
+    "lint": "pnpm run typecheck",
+    "test": "node ../../node_modules/tsx/dist/cli.mjs --test src/**/*.test.ts"
   },
   "keywords": [],
   "author": "",

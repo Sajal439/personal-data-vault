@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { z } from "zod";
-import { IntegrationProvider } from "@prisma/client";
+import { IntegrationProvider } from "@repo/db";
 import {
   saveIntegration,
   getUserIntegrations,

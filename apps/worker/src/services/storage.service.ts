@@ -15,7 +15,7 @@ const S3_ENDPOINT = config.minio.endpoint;
 const S3_ACCESS_KEY = config.minio.accessKey;
 const S3_SECRET_KEY = config.minio.secretKey;
 const S3_BUCKET = config.minio.bucketName;
-const S3_REGION = "us-east-1";
+const S3_REGION = config.minio.region;
 
 const s3 = new S3Client({
   endpoint: S3_ENDPOINT,

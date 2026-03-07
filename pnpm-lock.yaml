@@ -88,13 +88,13 @@ importers:
   apps/web:
     dependencies:
       next:
-        specifier: latest
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: latest
+        specifier: 19.2.4
         version: 19.2.4
       react-dom:
-        specifier: latest
+        specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
     devDependencies:
       '@tailwindcss/postcss':

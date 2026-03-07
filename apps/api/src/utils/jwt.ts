@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import type { JwtPayload } from "@repo/types";
+import { config } from "@repo/config";
 
-if (!process.env.JWT_SECRET) {
+const JWT_SECRET = config.jwtSecret;
+
+if (!JWT_SECRET) {
   throw new Error("JWT_SECRET not defined");
 }
-
-const JWT_SECRET = process.env.JWT_SECRET;
 
 export function signToken(payload: object) {
   return jwt.sign(payload, JWT_SECRET, {

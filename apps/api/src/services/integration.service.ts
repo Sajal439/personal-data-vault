@@ -1,6 +1,6 @@
-import { prisma } from "@repo/db";
+import { prisma, IntegrationProvider } from "@repo/db";
 import { ApiError } from "../utils/apiError.js";
-import { IntegrationProvider } from "@prisma/client";
+import { encryptSecret, isEncryptedSecret } from "./encryption.service.js";
 
 /**
  * Saves or updates an OAuth integration for a user.
@@ -11,6 +11,16 @@ export async function saveIntegration(
   accessToken: string,
   refreshToken?: string,
 ) {
+  const encryptedAccessToken = isEncryptedSecret(accessToken)
+    ? accessToken
+    : encryptSecret(accessToken);
+
+  const encryptedRefreshToken = refreshToken
+    ? isEncryptedSecret(refreshToken)
+      ? refreshToken
+      : encryptSecret(refreshToken)
+    : undefined;
+
   return prisma.integration.upsert({
     where: {
       userId_provider: {
@@ -19,14 +29,14 @@ export async function saveIntegration(
       },
     },
     update: {
-      accessToken,
-      refreshToken,
+      accessToken: encryptedAccessToken,
+      refreshToken: encryptedRefreshToken,
     },
     create: {
       userId,
       provider,
-      accessToken,
-      refreshToken,
+      accessToken: encryptedAccessToken,
+      refreshToken: encryptedRefreshToken,
     },
   });
 }
@@ -35,16 +45,62 @@ export async function saveIntegration(
  * Fetches configured integrations for a user.
  */
 export async function getUserIntegrations(userId: string) {
-  return prisma.integration.findMany({
+  const integrations = await prisma.integration.findMany({
     where: { userId },
     select: {
       id: true,
       provider: true,
+      accessToken: true,
+      refreshToken: true,
       createdAt: true,
       updatedAt: true,
       // exclude sensitive tokens from view
     },
+    orderBy: { provider: "asc" },
   });
+
+  const normalizedIntegrations = await Promise.all(
+    integrations.map(async (integration) => {
+      const encryptedAccessToken = isEncryptedSecret(integration.accessToken)
+        ? integration.accessToken
+        : encryptSecret(integration.accessToken);
+
+      const encryptedRefreshToken = integration.refreshToken
+        ? isEncryptedSecret(integration.refreshToken)
+          ? integration.refreshToken
+          : encryptSecret(integration.refreshToken)
+        : null;
+
+      if (
+        encryptedAccessToken !== integration.accessToken ||
+        encryptedRefreshToken !== integration.refreshToken
+      ) {
+        await prisma.integration.update({
+          where: { id: integration.id },
+          data: {
+            accessToken: encryptedAccessToken,
+            refreshToken: encryptedRefreshToken,
+          },
+        });
+      }
+
+      return {
+        id: integration.id,
+        provider: integration.provider,
+        hasRefreshToken: Boolean(encryptedRefreshToken),
+        createdAt: integration.createdAt,
+        updatedAt: integration.updatedAt,
+      };
+    }),
+  );
+
+  return normalizedIntegrations.map((integration) => ({
+    id: integration.id,
+    provider: integration.provider,
+    hasRefreshToken: integration.hasRefreshToken,
+    createdAt: integration.createdAt,
+    updatedAt: integration.updatedAt,
+  }));
 }
 
 /**

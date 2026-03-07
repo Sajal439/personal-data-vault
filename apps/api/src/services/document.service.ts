@@ -2,9 +2,28 @@ import { prisma } from "@repo/db";
 import { ApiError } from "../utils/apiError.js";
 
 /**
+ * Ensure a folder belongs to the authenticated user.
+ */
+export async function ensureFolderOwnedByUser(folderId: string, userId: string) {
+  const folder = await prisma.folder.findFirst({
+    where: {
+      id: folderId,
+      vault: { userId },
+    },
+    select: { id: true },
+  });
+
+  if (!folder) {
+    throw new ApiError(404, "Folder not found");
+  }
+}
+
+/**
  * Create document metadata in the database.
  */
-export async function createDocumentMetadata(data: {
+export async function createDocumentMetadata(
+  userId: string,
+  data: {
   title: string;
   mimeType: string;
   size: number;
@@ -14,7 +33,10 @@ export async function createDocumentMetadata(data: {
   encryptionIv?: string;
   encryptionAlgo?: string;
   encryptionTag?: string;
-}) {
+},
+) {
+  await ensureFolderOwnedByUser(data.folderId, userId);
+
   return prisma.document.create({ data });
 }
 

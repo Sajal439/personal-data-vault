@@ -18,6 +18,23 @@ export async function createFolder(
     throw new ApiError(404, "Vault not found");
   }
 
+  if (parentId) {
+    const parentFolder = await prisma.folder.findFirst({
+      where: {
+        id: parentId,
+        vaultId,
+      },
+      select: { id: true },
+    });
+
+    if (!parentFolder) {
+      throw new ApiError(
+        400,
+        "Invalid parentId: parent folder must belong to the same vault",
+      );
+    }
+  }
+
   return prisma.folder.create({
     data: {
       name,
